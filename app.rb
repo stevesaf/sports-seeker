@@ -38,6 +38,7 @@ end
 get("/home") do
   @session = session[:user_id]
   @user = User.find(session[:user_id])
+  @friends = @user.find_friends()
   @events = Event.all()
   erb(:home)
 end

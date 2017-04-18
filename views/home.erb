@@ -40,7 +40,11 @@
 </form>
 
 <h1>See all Friends:</h1>
-<li>Friend 1</li>
+<li>
+  <%@friends.each do |friend|%>
+    <%=friend.name%>
+  <%end%>
+</li>
 <li>Friend 2</li>
 
 <h1>Add a friend:</h1>
