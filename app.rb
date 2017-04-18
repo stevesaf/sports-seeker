@@ -1,19 +1,27 @@
-
 require("bundler/setup")
   Bundler.require(:default)
   Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
   also_reload("lib/*.rb")
   require('pry')
 
+configure do
+  enable :sessions
+end
+
 get("/") do
   erb(:index)
+end
+
+get('/logout') do
+  session.clear
+  redirect to ('/')
 end
 
 get("/user") do
   username = params.fetch('username')
   user = User.find_by username: username
   session[:user_id] = user.id
-  redirect("/home/#{user.id}")
+  redirect("/home")
 end
 
 post("/signup") do
@@ -23,13 +31,13 @@ post("/signup") do
   image_url = params.fetch('image_url')
   dob = params.fetch('dob')
   new_user = User.create({:username => username, :name => name, :gender => gender, :image_url => image_url, :dob => dob})
-  id = new_user.id
-  redirect("/home/#{id}")
+  session[:user_id] = new_user.id
+  redirect("/home")
 end
 
-get("/home/:id") do
-  session[:user_id]
-  @user = User.find(params.fetch('id').to_i)
+get("/home") do
+  @session = session[:user_id]
+  @user = User.find(session[:user_id])
   @events = Event.all()
   erb(:home)
 end
@@ -68,11 +76,11 @@ end
 
 post('/add_friend/:id') do
   friend_id = Integer(params.fetch('id'))
-  my_id = Integer(params.fetch('user_id'))
+  my_id = session[:user_id]
   me = User.find(my_id)
   friend = User.find(friend_id)
   Friend.create(:user1 => me, :user2 => friend)
-  redirect to ("/home/#{my_id}")
+  redirect to ("/home")
 end
 
 

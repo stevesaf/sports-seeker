@@ -1,3 +1,4 @@
+<%=@session%>
 <h1>See all events below:</h1>
 <% @events.each() do |event|%>
 <a href="/event/<%=event.id%>"<li><%=event.name%></li></a>
