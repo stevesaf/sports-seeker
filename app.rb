@@ -23,8 +23,26 @@ get("/home") do
 end
 
 get("/admin") do
+  @suppliers = Supplier.all()
+  @categories = Category.all()
   erb(:admin)
 end
+
+  post("/category") do
+    name = params.fetch("name")
+    Category.create({:name => name})
+    redirect('/admin')
+  end
+
+  post("/supplier") do
+    name = params.fetch("name")
+    expertise = params.fetch("expertise")
+    cost_per_person = params.fetch("cost_per_person")
+    description = params.fetch("description")
+    logo_url = params.fetch("logo_url")
+    Supplier.create({:name => name, :expertise => expertise, :cost_per_person => cost_per_person, :description => description, :logo_url => logo_url})
+    redirect('/admin')
+  end
 
 get("/users") do
   erb(:users)

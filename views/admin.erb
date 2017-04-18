@@ -1,7 +1,43 @@
 <h1>See all suppliers below:</h1>
-<li>Supplier 1 - edit / delete button</li>
-<li>Supplier 2</li>
-<li>Event 3</li>
+<% @suppliers.each() do |supplier| %>
+  <li><%= supplier.name %></li>
+<% end %>
 
 <h1>Create Supplier:</h1>
-<li>FORM</li>
+
+<form class="form-horizontal" action="/supplier" method="post">
+  <div class="form-group">
+    <label class="col-sm-1" for="name">Name:</label>
+    <input class="col-sm-4" type="text" name="name" id="name" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="expertise">Expertise:</label>
+    <input class="col-sm-4" type="text" name="expertise" id="expertise" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="cost_per_person">Cost per person:</label>
+    <input class="col-sm-4" type="text" name="cost_per_person" id="cost_per_person" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="description">Description:</label>
+    <input class="col-sm-4" type="text" name="description" id="description" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="logo_url">Logo URL:</label>
+    <input class="col-sm-4" type="text" name="logo_url" id="logo_url" value="">
+  </div>
+    <button class="btn btn-default" type="submit">Submit</button>
+</form>
+
+<h1>See all categories below:</h1>
+<% @categories.each() do |category| %>
+  <li><%= category.name %></li>
+<% end %>
+
+<h1>Create Category:</h1>
+
+<form action="/category" method="post">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name" value="">
+  <button class="btn btn-default" type="submit">Submit</button>
+</form>
