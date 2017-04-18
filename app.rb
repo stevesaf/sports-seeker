@@ -30,6 +30,7 @@ get("/home/:id") do
   erb(:home)
 end
 
+
   post("/event") do
     user_id = params.fetch('user_id')
     name = params.fetch("name")
@@ -47,6 +48,14 @@ end
     @event = Event.find(params.fetch("id").to_i)
     erb(:event)
   end
+
+get('/search') do
+  keyword = params.fetch('keyword')
+  @possible_users = User.where("name LIKE ? OR username LIKE?", "%#{keyword}%", "%#{keyword}%")
+  @possible_events = Event.where("name LIKE ?", "%#{keyword}%")
+  erb(:search_result)
+end
+
 
 get("/admin") do
   @suppliers = Supplier.all()

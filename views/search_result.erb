@@ -1,6 +1,9 @@
+
 <% if @possible_users.any?()%>
   <%@possible_users.each do|user|%>
-    <%=user.name%>
+    <li>
+      <a href='/user/<%=user.id%>'><%=user.name%></a>
+    </li>
   <%end%>
 <%else%>
   None
@@ -8,7 +11,9 @@
 
 <% if @possible_events.any?()%>
   <%@possible_events.each do|event|%>
-    <%=event.name%>
+    <li>
+      <a href='/event/<%=event.id%>'><%=event.name%></a>
+    </li>
   <%end%>
 <%else%>
   None
