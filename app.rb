@@ -7,6 +7,17 @@ get("/") do
   erb(:index)
 end
 
+post("/signup") do
+  username = params.fetch('username')
+  name = params.fetch('name')
+  gender = params.fetch('gender')
+  image_url = params.fetch('image_url')
+  dob = params.fetch('dob')
+  new_user = User.create({:username => username, :name => name, :gender => gender, :image_url => image_url, :dob => dob})
+  id = new_user.id
+  redirect("/home/#{id}")
+end
+
 get("/home") do
   erb(:home)
 end
@@ -20,12 +31,6 @@ get("/users") do
 end
 
 get("/user") do
-  username = params.fetch('username')
-  id = params.fetch('id').to_i
-  redirect("/home/#{id}")
-end
-
-post("/user") do
   username = params.fetch('username')
   id = params.fetch('id').to_i
   redirect("/home/#{id}")

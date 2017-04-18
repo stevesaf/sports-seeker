@@ -8,8 +8,14 @@
 
 <h1>Sign Up</h1>
 
-    <form action="/user" method="post">
-      <label for="username">User:</label>
-      <input id="username" name="username" type="text">
+    <form action="/signup" method="post">
+      <input id="username" name="username" type="text" placeholder="Username">
+      <input id="name" name="name" type="text" placeholder="Name">
+      <select id='gender' name='gender' type='text'>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+      </select>
+      <input id="profile_pic_url" name="image_url" type="text" placeholder="Profile Photo URL">
+      <input id="dob" name="dob" type="date">
       <button type="submit">Sign Up</button>
     </form>
