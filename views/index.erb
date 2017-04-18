@@ -1,7 +1,7 @@
 <h1>Sign In</h1>
 
     <form action="/user">
-      <label for="username">User:</label>
+      <label for="username">Username:</label>
       <input id="username" name="username" type="text">
       <button type="submit">Log In</button>
     </form>
@@ -9,13 +9,18 @@
 <h1>Sign Up</h1>
 
     <form action="/signup" method="post">
-      <input id="username" name="username" type="text" placeholder="Username">
-      <input id="name" name="name" type="text" placeholder="Name">
+      <label for="username">Username:</label>
+      <input id="username" name="username" type="text" placeholder="Username"><br />
+      <label for="name">Name:</label>
+      <input id="name" name="name" type="text" placeholder="Name"><br />
+      <label for="gender">Gender:</label>
       <select id='gender' name='gender' type='text'>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-      </select>
-      <input id="profile_pic_url" name="image_url" type="text" placeholder="Profile Photo URL">
-      <input id="dob" name="dob" type="date">
+      </select><br />
+      <label for="proPic">Profile Photo:</label>
+      <input id="profile_pic_url" name="image_url" type="text" placeholder="Profile Photo URL"><br />
+      <label for="dob">Date of Birth:</label>
+      <input id="dob" name="dob" type="date"><br />
       <button type="submit">Sign Up</button>
     </form>
