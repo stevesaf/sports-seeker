@@ -7,6 +7,12 @@ get("/") do
   erb(:index)
 end
 
+get("/user") do
+  username = params.fetch('username')
+  user = User.find_by username: username
+  redirect("/home/#{user.id}")
+end
+
 post("/signup") do
   username = params.fetch('username')
   name = params.fetch('name')
@@ -18,9 +24,18 @@ post("/signup") do
   redirect("/home/#{id}")
 end
 
-get("/home") do
+get("/home/:id") do
+  @events = Event.all()
   erb(:home)
 end
+
+get('/search') do
+  keyword = params.fetch('keyword')
+  @possible_users = User.where("name LIKE ? OR username LIKE?", "%#{keyword}%", "%#{keyword}%")
+  @possible_events = Event.where("name LIKE ?", "%#{keyword}%")
+  erb(:search_result)
+end
+
 
 get("/admin") do
   @suppliers = Supplier.all()
@@ -45,20 +60,9 @@ end
   end
 
   get("/supplier/:id") do
-    
+
   end
 
 get("/users") do
   erb(:users)
-end
-
-get("/user") do
-  username = params.fetch('username')
-  id = params.fetch('id').to_i
-  redirect("/home/#{id}")
-end
-
-get("/home/:id") do
-  @events = Event.all()
-  erb(:home)
 end
