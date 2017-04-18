@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <html>
+      <head>
+        <title>Project X</title>
+        <link rel='stylesheet' href='https://bootswatch.com/flatly/bootstrap.min.css'>
+        <link rel='stylesheet' href='styles.css'>
+      </head>
+      <body>
+
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/home">Project X</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">View Events <span class="sr-only">(current)</span></a></li>
+                <li><a href="/users">View all users (like search)</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="#">About Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container">
+          <%= yield %>
+        </div>
+      </body>
+    </html>
