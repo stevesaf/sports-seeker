@@ -32,7 +32,8 @@ end
 
 get("/user") do
   username = params.fetch('username')
-  id = params.fetch('id').to_i
+  current_user = User.find_by username: username
+  id = current_user.id
   redirect("/home/#{id}")
 end
 
