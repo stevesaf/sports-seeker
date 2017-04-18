@@ -1,0 +1,15 @@
+<% if @possible_users.any?()%>
+  <%@possible_users.each do|user|%>
+    <%=user.name%>
+  <%end%>
+<%else%>
+  None
+<%end%>
+
+<% if @possible_events.any?()%>
+  <%@possible_events.each do|event|%>
+    <%=event.name%>
+  <%end%>
+<%else%>
+  None
+<%end%>

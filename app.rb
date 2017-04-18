@@ -2,6 +2,7 @@ require("bundler/setup")
   Bundler.require(:default)
   Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
   also_reload("lib/*.rb")
+  require('pry')
 
 get("/") do
   erb(:index)
@@ -18,18 +19,6 @@ post("/signup") do
   redirect("/home/#{id}")
 end
 
-get("/home") do
-  erb(:home)
-end
-
-get("/admin") do
-  erb(:admin)
-end
-
-get("/users") do
-  erb(:users)
-end
-
 get("/user") do
   username = params.fetch('username')
   current_user = User.find_by username: username
@@ -40,4 +29,23 @@ end
 get("/home/:id") do
   @events = Event.all()
   erb(:home)
+end
+
+get("/search") do
+  keyword = params.fetch('keyword')
+  @possible_users = User.where("name LIKE ? OR username LIKE?" , "%#{keyword}%", "%#{keyword}%")
+  @possible_events = Event.where("name LIKE ?" , "%#{keyword}%")
+  erb(:search_result)
+end
+
+get("/home") do
+  erb(:home)
+end
+
+get("/admin") do
+  erb(:admin)
+end
+
+get("/users") do
+  erb(:users)
 end
