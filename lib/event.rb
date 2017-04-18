@@ -8,7 +8,6 @@ class Event < ActiveRecord::Base
   has_many(:histories, dependent: :destroy)
   has_many(:users, through: :histories)
 
-  has_many(:pendings, dependent: :destroy)
-  has_many(:users, through: :pendings)
+  belongs_to(:user)
 
 end

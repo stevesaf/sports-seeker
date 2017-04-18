@@ -1,6 +1,6 @@
 <h1>See all suppliers below:</h1>
 <% @suppliers.each() do |supplier| %>
-  <li><%= supplier.name %></li>
+  <a href="/supplier/<%=supplier.id%>"><li><%= supplier.name %></li></a>
 <% end %>
 
 <h1>Create Supplier:</h1>

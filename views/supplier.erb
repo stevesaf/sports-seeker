@@ -1,0 +1,27 @@
+
+<h1><%= @supplier.name%></h1>
+
+<img style="height: 100px" src="<%= @supplier.logo_url%>">
+
+<h3>Expertise: <%= @supplier.expertise%></h3>
+<p><%= @supplier.description%></p>
+
+<h3>Cost per person: $<%= @supplier.cost_per_person%></h3>
+
+<h3>Categories:</h3>
+<% @supplier.categories.each() do |category|%>
+<li><%=category.name%></li>
+<%end%>
+
+<form class="form-horizontal" action="/category_suppliers" method="post">
+  <input name="id" value="<%= @supplier.id%>" type="hidden">
+  <div class="form-group">
+    <label class="col-sm-1" for="name">Category:</label>
+    <select class="col-sm-4" type="text" name="category_id">
+      <% @categories.each() do |category|%>
+      <option value="<%= category.id%>"><%= category.name%></option>
+      <% end %>
+    </select>
+  </div>
+    <button class="btn btn-default" type="submit">Add a category</button>
+</form>
