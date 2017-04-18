@@ -1,1 +1,4 @@
-<img src="<%=@user.img_url"%>/>
+<img src="<%=@user.image_url%>"/>
+<form action='/add_friend/<%=@user.id%>' method='post'>
+  <button class='btn btn-success'>Add Friend</button>
+</form>
