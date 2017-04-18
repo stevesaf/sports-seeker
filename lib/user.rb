@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   has_many(:pendings, dependent: :destroy)
   has_many(:events, through: :pendings)
 
+  has_many (:events)
 end

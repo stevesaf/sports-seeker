@@ -1,10 +1,42 @@
 <h1>See all events below:</h1>
-<li>Event 1 - join event button</li>
-<li>Event 2</li>
-<li>Event 3</li>
+<% @events.each() do |event|%>
+<a href="/event/<%=event.id%>"<li><%=event.name%></li></a>
+<%end%>
 
 <h1>Create Event:</h1>
-<li>FORM</li>
+
+<form class="form-horizontal" action="/event" method="post">
+  <input type="hidden" name="user_id" value="<%= @user.id%>">
+  <div class="form-group">
+    <label class="col-sm-1" for="name">Name:</label>
+    <input class="col-sm-4" type="text" name="name" id="name" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="date">Date:</label>
+    <input class="col-sm-4" type="date" name="date" id="date" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="location">Location:</label>
+    <input class="col-sm-4" type="text" name="location" id="location" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="capacity">Capacity:</label>
+    <input class="col-sm-4" type="number" name="capacity" min="1" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="description">Description:</label>
+    <input class="col-sm-4" type="text" name="description" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="image_url">Image URL:</label>
+    <input class="col-sm-4" type="text" name="image_url" value="">
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1" for="video_url">Video URL:</label>
+    <input class="col-sm-4" type="text" name="video_url" value="">
+  </div>
+    <button class="btn btn-default" type="submit">Submit</button>
+</form>
 
 <h1>See all Friends:</h1>
 <li>Friend 1</li>
