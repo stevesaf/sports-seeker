@@ -44,3 +44,21 @@
   </div>
     <button class="btn btn-default" type="submit">Submit</button>
 </form>
+
+<div class="update_category">
+  <form class="form-horizontal" id="update_category_id" action="/categories/<%= @category.id()%>" method="post">
+    <input name="_method" value="patch" type="hidden">
+
+    <div class="form-group">
+      <label class="col-sm-1" for="name">Name:</label>
+      <input class="col-sm-4" type="text" name="name" value="" placeholder="<%= @category.name()%>">
+    </div>
+    <button class="btn btn-default" type="submit">Update</button>
+  </form>
+</div>
+
+<form action="/categories/<%= @categroy.id() %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+
+  <button class="btn btn-default" type="submit">Delete </button>
+</form>
