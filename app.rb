@@ -102,15 +102,16 @@ post("/category") do
     redirect('/admin')
 end
 
-  patch("/categories/:id") do
+  patch("/category/:id") do
     category_id = params.fetch('id').to_i
     name = params.fetch("name")
     @category = Category.find(params.fetch("id").to_i())
     @category.update({:name => name})
-    redirect("/category/#{category_id}")
+    redirect("/admin")
   end
 
-  delete("/categories/:id") do
+  delete("/category/:id") do
+    id = params.fetch('id').to_i
     @category = Category.find(params.fetch("id").to_i())
     @category.delete()
     redirect("/admin")
