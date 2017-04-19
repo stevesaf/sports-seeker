@@ -59,9 +59,23 @@ get("/home") do
   @user = User.find(session[:user_id])
   @friends = @user.find_friends()
   @events = Event.all()
+  @invitations = EventUser.where(:attendee => @user, :accepted => nil)
   erb(:home)
 end
 
+patch("/accept/:id") do
+  event_user_id = params.fetch('id')
+  event_user = EventUser.find(event_user_id)
+  event_user.update({:accepted => true})
+  redirect("/home")
+end
+
+patch("/reject/:id") do
+  event_user_id = params.fetch('id')
+  event_user = EventUser.find(event_user_id)
+  event_user.update({:accepted => false})
+  redirect("/home")
+end
 
 post("/event") do
   user_id = params.fetch('user_id')
@@ -117,6 +131,7 @@ get('/search') do
   keyword = params.fetch('keyword').downcase
   @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{keyword}%", "%#{keyword}%")
   @possible_events = Event.where("lower(name) LIKE ?", "%#{keyword}%")
+  @possible_categories = Category.where("lower(name) LIKE ?", "%#{keyword}%")
   erb(:search_result)
 end
 
@@ -193,13 +208,13 @@ patch("/suppliers/:id") do
   @supplier = Supplier.find(params.fetch("id").to_i())
   @supplier.update({:name => name, :expertise => expertise, :cost_per_person => cost_per_person, :description => description, :logo_url => logo_url})
   redirect("/supplier/#{supplier_id}")
-  end
+end
 
-  delete("/suppliers/:id") do
+delete("/suppliers/:id") do
   @supplier = Supplier.find(params.fetch("id").to_i())
   @supplier.delete()
   redirect("/admin")
-  end
+end
 
 post("/category_suppliers") do
   supplier_id = params.fetch('id').to_i

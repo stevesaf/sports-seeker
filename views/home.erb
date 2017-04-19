@@ -1,4 +1,21 @@
 <%=@session%>
+<h1>See all invitations</h1>
+  <% if @invitations.any?() %>
+    <%@invitations.each do |invitation|%>
+      <a href ="/event/<%=invitation.event.id%>"><%=invitation.event.name%></a> - <a href ="/user/<%=invitation.sender.id%>"><%=invitation.sender.name%></a>
+      <form action='/accept/<%=invitation.id%>' method='post'>
+        <input type="hidden" name="_method" value="patch">
+        <button class='btn btn-success'>Accept</button>
+      </form>
+      <form action='/reject/<%=invitation.id%>' method='post'>
+        <input type="hidden" name="_method" value="patch">
+        <button class='btn btn-danger'>Reject</button>
+      </form>
+    <%end%>
+  <%else%>
+    None
+  <%end%>
+
 <h1>See all events below:</h1>
 <% @events.each() do |event|%>
 <a href="/event/<%=event.id%>"><li><%=event.name%></li></a>
