@@ -68,10 +68,10 @@ get("/event/:id") do
 end
 
 get('/search') do
-    keyword = params.fetch('keyword')
-    @possible_users = User.where("name LIKE ? OR username LIKE?", "%#{keyword}%", "%#{keyword}%")
-    @possible_events = Event.where("name LIKE ?", "%#{keyword}%")
-    erb(:search_result)
+  keyword = params.fetch('keyword').downcase
+  @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{keyword}%", "%#{keyword}%")
+  @possible_events = Event.where("lower(name) LIKE ?", "%#{keyword}%")
+  erb(:search_result)
 end
 
 get('/user/:id') do
