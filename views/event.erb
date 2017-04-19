@@ -6,7 +6,7 @@
 
 <div style="width: 80%; height: 300px; border: 1px solid black; margin-bottom: 5px" class="">
 
-    <img class="col-xs-6" style="height: 150px; margin-bottom: 10px; margin-top: 10px" src="<%= @event.image_url%>">
+    <img class="col-xs-6" style="max-height: 150px; max-width=150px; margin-bottom: 10px; margin-top: 10px" src="<%= @event.image_url%>">
 
     <iframe class="col-xs-6 video-frame" style="; margin-bottom: 10px; margin-top: 10px" src="<%= @event.video_url%>" frameborder="0" allowfullscreen></iframe>
 
@@ -24,17 +24,61 @@
             <%=@event.capacity%>
         </p>
     </div>
-
 </div>
+
+<div class="update_event">
+  <form class="form-horizontal" id="update_event_id" action="/event/<%= @event.id()%>" method="post">
+    <input name="_method" value="patch" type="hidden">
+
+    <div class="form-group">
+      <label class="col-sm-1" for="name">Name:</label>
+      <input class="col-sm-4" type="text" name="name" value="" placeholder="<%= @event.name()%>">
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="date">Date:</label>
+      <input class="col-sm-4" type="timestamp" name="date" value="" placeholder="<%= @event.date()%>">
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="location">Location:</label>
+      <input class="col-sm-4" type="text" name="location" value="" placeholder="<%= @event.location()%>">
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="capacity">Capacity:</label>
+      <input class="col-sm-4" type="number" name="capacity" value="" placeholder="<%= @event.capacity()%>">
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="description">Description:</label>
+      <input class="col-sm-4" type="text" name="description" value="" placeholder="<%= @event.description()%>">
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="image_url">Image URL:</label>
+      <input class="col-sm-4" type="text" name="image_url" value="" placeholder="<%= @event.image_url()%>">
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="video_url">Video URL:</label>
+      <input class="col-sm-4" type="text" name="video_url" value="" placeholder="<%= @event.video_url()%>">
+    </div>
+    <button class="btn-sm btn-primary" type="submit">Update</button>
+  </form>
+</div>
+
+<div class="delete_event">
+  <form action="/event/<%= @event.id() %>" method="post">
+    <input name="_method" type="hidden" value="delete">
+    <button class="btn-sm btn-danger" type="submit">Delete </button>
+  </form>
+</div>
+
+
 
 <h1>Add your own friends to this event:</h1>
 
-<form class="form-horizontal" action="/friend" method="post">
+<form class="form-horizontal" action="/event_user/<%=@event.id%>" method="post">
 
     <% if @friends.any?() %>
-        <select name="option" id="option">
+        <select name="friend_id">
             <% @friends.each() do |friend| %>
-            <option value=<%friend.id%>><%=friend.name%></option>
+            <option value=<%=friend.id%>><%=friend.name%></option>
             <% end %>
         </select>
         <button class="btn btn-info" type="submit" class="btn">Submit</button>

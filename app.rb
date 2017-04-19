@@ -25,6 +25,11 @@ get('/logout') do
   redirect to ('/')
 end
 
+get('/profile') do
+  @user = User.find(session[:user_id])
+  erb(:profile)
+end
+
 post("/user") do
   username = params.fetch('username')
   user = User.find_by username: username
@@ -54,9 +59,23 @@ get("/home") do
   @user = User.find(session[:user_id])
   @friends = @user.find_friends()
   @events = Event.all()
+  @invitations = EventUser.where(:attendee => @user, :accepted => nil)
   erb(:home)
 end
 
+patch("/accept/:id") do
+  event_user_id = params.fetch('id')
+  event_user = EventUser.find(event_user_id)
+  event_user.update({:accepted => true})
+  redirect("/home")
+end
+
+patch("/reject/:id") do
+  event_user_id = params.fetch('id')
+  event_user = EventUser.find(event_user_id)
+  event_user.update({:accepted => false})
+  redirect("/home")
+end
 
 post("/event") do
   user_id = params.fetch('user_id')
@@ -69,8 +88,6 @@ post("/event") do
   video_url = params.fetch("video_url")
   event = Event.create({:name => name, :date => date , :location => location, :capacity => capacity, :description=>description, :image_url=>image_url, :video_url=>video_url, :user_id=>user_id})
   redirect("/event/#{event.id}")
-  @user = User.find(session[:user_id])
-  @friends = @user.find_friends()
 end
 
 get("/event/:id") do
@@ -82,10 +99,39 @@ get("/event/:id") do
   erb(:event)
 end
 
+post("/event_user/:id") do
+  me = User.find(session[:user_id])
+  friend = User.find(Integer(params.fetch('friend_id')))
+  event = Event.find(Integer(params.fetch('id')))
+  EventUser.create({:event => event, :attendee => friend, :sender => me})
+  redirect("/event/#{event.id}")
+end
+
+patch("/event/:id") do
+  event_id = params.fetch('id').to_i
+  name = params.fetch("name")
+  date = params.fetch("date")
+  location = params.fetch("location")
+  capacity = params.fetch("capacity")
+  description = params.fetch("description")
+  image_url = params.fetch("image_url")
+  video_url = params.fetch("video_url")
+  @event = Event.find(params.fetch("id").to_i())
+  @event.update({:name => name, :date => date, :location => location, :capacity => capacity, :description => description, :image_url => image_url, :video_url => video_url})
+  redirect("/event/#{event_id}")
+end
+
+delete("/event/:id") do
+  @event = Event.find(params.fetch("id").to_i())
+  @event.delete()
+  redirect("/home")
+end
+
 get('/search') do
   keyword = params.fetch('keyword').downcase
   @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{keyword}%", "%#{keyword}%")
   @possible_events = Event.where("lower(name) LIKE ?", "%#{keyword}%")
+  @possible_categories = Category.where("lower(name) LIKE ?", "%#{keyword}%")
   erb(:search_result)
 end
 
@@ -162,13 +208,13 @@ patch("/suppliers/:id") do
   @supplier = Supplier.find(params.fetch("id").to_i())
   @supplier.update({:name => name, :expertise => expertise, :cost_per_person => cost_per_person, :description => description, :logo_url => logo_url})
   redirect("/supplier/#{supplier_id}")
-  end
+end
 
-  delete("/suppliers/:id") do
+delete("/suppliers/:id") do
   @supplier = Supplier.find(params.fetch("id").to_i())
   @supplier.delete()
   redirect("/admin")
-  end
+end
 
 post("/category_suppliers") do
   supplier_id = params.fetch('id').to_i
