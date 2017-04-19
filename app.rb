@@ -8,6 +8,14 @@ configure do
   enable :sessions
 end
 
+before do
+  if params[:username] == nil
+   if session[:user_id] === nil && url != "http://localhost:4567/"
+     redirect("/")
+    end
+  end
+end
+
 get("/") do
   erb(:index)
 end
@@ -98,6 +106,9 @@ end
 
 
 get("/admin") do
+  if session[:user_id] != 1
+    redirect("/home")
+  end
   @suppliers = Supplier.all()
   @categories = Category.all()
   erb(:admin)

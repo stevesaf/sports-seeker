@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 list = [
+    [ "Admin", "Admin", "Female", "https://avatars2.githubusercontent.com/u/25296117?v=3&s=460", "04/04/1990"  ],
     [ "Julie", "Jooolie", "Female", "https://avatars2.githubusercontent.com/u/25296117?v=3&s=460", "04/04/1990"  ],
     [ "David", "dxsfung", "Male", "https://avatars2.githubusercontent.com/u/25076720?v=3&s=460", "04/04/1990"  ],
     [ "Brian", "brianlaw033", "Male", "https://avatars0.githubusercontent.com/u/25007087?v=3&s=460", "04/04/1990"  ],
