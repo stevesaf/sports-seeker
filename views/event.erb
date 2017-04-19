@@ -1,7 +1,7 @@
 <h1><%= @event.name%></h1>
 
 <h3>Hosted by
-    <%=@host.name%>
+    <%=@event.user.name%>
 </h3>
 
 <div style="width: 80%; height: 300px; border: 1px solid black; margin-bottom: 5px" class="">
@@ -32,47 +32,14 @@
 <form class="form-horizontal" action="/friend" method="post">
 
     <% if @friends.any?() %>
-
-    <% @friends.each() do |friend| %>
-
-    <select name="option" id="option">
-        <option value="Case Sensitive Any - including partial words">Case Sensitive Any</option>
-        <option value="Case Sensitive Word Only">Case Sensitive Word Only</option>
-        <option value="Case Non-sensitive Any - including partial words">Case Non-sensitive Any</option>
-        <option value="Case Non-sensitive Word">Case Non-sensitive Word</option>
-    </select>
-    <button class="btn btn-info" type="submit" class="btn">Submit</button>
-
-    <div class="form-group">
-        <label class="col-sm-1" for="name">Name:</label>
-        <input class="col-sm-4" type="text" name="name" id="name" value="">
-    </div>
-    <div class="form-group">
-        <label class="col-sm-1" for="dob">Birthday:</label>
-        <input class="col-sm-4" type="text" name="dob" value="">
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-1" for="gender">Gender:</label>
-        <input class="col-sm-4" type="text" name="gender" id="gender" value="">
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-1" for="username">Username:</label>
-        <input class="col-sm-4" type="text" name="username" id="username" value="">
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-1" for="image_url">Image URL:</label>
-        <input class="col-sm-4" type="text" name="image_url" value="">
-    </div>
-
-    <button class="btn btn-default" type="submit">Submit</button>
-
-    <% end %>
-
-<% else %>
-    <h3>You have no friends yet!</h3>
+        <select name="option" id="option">
+            <% @friends.each() do |friend| %>
+            <option value=<%friend.id%>><%=friend.name%></option>
+            <% end %>
+        </select>
+        <button class="btn btn-info" type="submit" class="btn">Submit</button>
+    <% else %>
+        <h3>You have no friends yet!</h3>
     <% end %>
 
 </form>

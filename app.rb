@@ -61,7 +61,6 @@ end
 
 get("/event/:id") do
     @event = Event.find(params.fetch("id").to_i)
-    @host = User.find(session[:user_id])
     t = @event.date
     @date = t.strftime("%d-%b-%Y")
     @user = User.find(session[:user_id])
