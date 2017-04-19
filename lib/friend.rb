@@ -5,7 +5,7 @@ class Friend < ActiveRecord::Base
   def self.add_friend(me, friend)
     scenario1 = Friend.where(:user1 => me, :user2 => friend)
     scenario2 = Friend.where(:user2 => me, :user1 => friend)
-    if scenario1 == nil and scenario2 == nil
+    if scenario1 == [] and scenario2 == []
       Friend.create({:user1 => me, :user2 => friend})
     end
   end
