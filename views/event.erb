@@ -21,13 +21,13 @@
 <div class="row">
   <div class="col-md-4">
     <h2>Friends going:</h2>
-    <% @pending.each() do |event_user| %>
+    <% @accepted.each() do |event_user| %>
     <li><%= event_user.attendee.name%></li>
     <%end%>
   </div>
   <div class="col-md-4">
     <h2>Pending Acceptance:</h2>
-    <% @accepted.each() do |event_user| %>
+    <% @pending.each() do |event_user| %>
     <li><%= event_user.attendee.name%></li>
     <%end%>
   </div>

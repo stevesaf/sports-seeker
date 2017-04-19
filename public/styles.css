@@ -6,3 +6,9 @@
   max-height: 350px;
   margin-top:25px
 }
+
+.friendbar {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
