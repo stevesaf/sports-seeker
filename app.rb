@@ -105,6 +105,13 @@ get("/event/:id") do
   erb(:event)
 end
 
+  post('/join') do
+    me = User.find(session[:user_id])
+    event = Event.find(Integer(params.fetch('event_id')))
+    EventUser.where(:attendee_id => session[:user_id], :event_id => event.id).first_or_create(:event => event, :attendee => me, :accepted => true)
+    redirect("/event/#{event.id}")
+  end
+
 post("/event_user/:id") do
   me = User.find(session[:user_id])
   friend = User.find(Integer(params.fetch('friend_id')))

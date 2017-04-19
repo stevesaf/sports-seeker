@@ -1,5 +1,10 @@
 <h1><%= @event.name%><small> Hosted by <%=@event.user.name%> </small> </h1>
 
+<form action="/join" method="post">
+  <input type="hidden" value="<%= @event.id %>" name="event_id">
+  <button class="btn btn-danger" type="submit">Join</button>
+</form>
+
   <div class="row" style="height:400px ;border: 1px solid grey">
     <div class="col-md-6">
       <img class="css-eventimg" src="<%= @event.image_url%>">

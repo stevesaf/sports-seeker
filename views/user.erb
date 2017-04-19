@@ -1,4 +1,6 @@
 <img class="css-profile" src="<%= @user.image_url %>">
 <form action='/add_friend/<%=@user.id%>' method='post'>
+  <% if @user.id!=session[:user_id]%>
   <button class='btn btn-success'>Add Friend</button>
+  <%end%>
 </form>
