@@ -68,6 +68,26 @@ get("/event/:id") do
     erb(:event)
 end
 
+  patch("/event/:id") do
+    event_id = params.fetch('id').to_i
+    name = params.fetch("name")
+    date = params.fetch("date")
+    location = params.fetch("location")
+    capacity = params.fetch("capacity")
+    description = params.fetch("description")
+    image_url = params.fetch("image_url")
+    video_url = params.fetch("video_url")
+    @event = Event.find(params.fetch("id").to_i())
+    @event.update({:name => name, :date => date, :location => location, :capacity => capacity, :description => description, :image_url => image_url, :video_url => video_url})
+    redirect("/event/#{event_id}")
+  end
+
+  delete("/event/:id") do
+    @event = Event.find(params.fetch("id").to_i())
+    @event.delete()
+    redirect("/home")
+  end
+
 get('/search') do
   keyword = params.fetch('keyword').downcase
   @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{keyword}%", "%#{keyword}%")
