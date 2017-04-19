@@ -25,6 +25,11 @@ get('/logout') do
   redirect to ('/')
 end
 
+get('/profile') do
+  @user = User.find(session[:user_id])
+  erb(:profile)
+end
+
 post("/user") do
   username = params.fetch('username')
   user = User.find_by username: username

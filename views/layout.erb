@@ -3,7 +3,7 @@
       <head>
         <title>Project X</title>
         <link rel='stylesheet' href='https://bootswatch.com/flatly/bootstrap.min.css'>
-        <link rel='stylesheet' href='styles.css'>
+        <link rel='stylesheet' href=<%=url('/styles.css')%>>
       </head>
       <body>
 
@@ -36,7 +36,7 @@
                   <li><a href="/admin">Admin</a></li>
                 <%end%>
                 <li><a href="#">About</a></li>
-                <li><a href="/home"><%=session[:username]%></a></li>
+                <li><a href="/profile"><%=session[:username]%></a></li>
                 <li>
                   <form action='/logout'>
                      <button>Logout</button>
