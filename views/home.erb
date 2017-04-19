@@ -1,7 +1,7 @@
 <%=@session%>
 <h1>See all events below:</h1>
 <% @events.each() do |event|%>
-<a href="/event/<%=event.id%>"<li><%=event.name%></li></a>
+<a href="/event/<%=event.id%>"><li><%=event.name%></li></a>
 <%end%>
 
 <h1>Create Event:</h1>
@@ -40,11 +40,11 @@
 </form>
 
 <h1>See all Friends:</h1>
-<li>
+
   <%@friends.each do |friend|%>
-    <%=friend.name%>
+    <a href="/friend/<%=friend.id%>"><li><%=friend.name()%></li></a>
   <%end%>
-</li>
+
 
 <h1>Add a friend:</h1>
 <li>FORM</li>
