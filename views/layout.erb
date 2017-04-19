@@ -22,11 +22,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <ul class="nav navbar-nav">
                 <%if session[:user_id] != nil%>
-                  <li class="active"><a href="#">View Events <span class="sr-only">(current)</span></a></li>
                   <li style="margin:15px 0 0 10px">
                       <form action='/search'>
                         <input type='text' name='keyword' placeholder="Search..."/>
-                        <button type="submit">Search</button>
+                        <button class='btn-sm btn-primary'type="submit">Search</button>
                       </form>
                   </li>
                 <%end%>

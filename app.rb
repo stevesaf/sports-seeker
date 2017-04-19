@@ -158,7 +158,7 @@ post('/add_friend/:id') do
   my_id = session[:user_id]
   me = User.find(my_id)
   friend = User.find(friend_id)
-  Friend.create(:user1 => me, :user2 => friend)
+  Friend.add_friend(me, friend)
   redirect to ("/home")
 end
 
