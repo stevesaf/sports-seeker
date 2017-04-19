@@ -92,6 +92,7 @@ end
 
 get("/event/:id") do
   @event = Event.find(params.fetch("id").to_i)
+  @categories = Category.all()
   t = @event.date
   @date = t.strftime("%d-%b-%Y")
   @user = User.find(session[:user_id])
@@ -123,15 +124,23 @@ end
 
 delete("/event/:id") do
   @event = Event.find(params.fetch("id").to_i())
-  @event.delete()
+  @event.destroy()
   redirect("/home")
 end
 
+patch ("/add_categories/:id") do
+  event = Event.find(params.fetch("id").to_i())
+  category_ids = params.fetch('category_ids')
+  event.add_category(category_ids)
+  redirect("/event/#{event.id}")
+end
+
 get('/search') do
-  keyword = params.fetch('keyword').downcase
-  @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{keyword}%", "%#{keyword}%")
-  @possible_events = Event.where("lower(name) LIKE ?", "%#{keyword}%")
-  @possible_categories = Category.where("lower(name) LIKE ?", "%#{keyword}%")
+  @keyword = params.fetch('keyword').downcase
+  @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{@keyword}%", "%#{@keyword}%")
+  @possible_events = Event.where("lower(name) LIKE ?", "%#{@keyword}%")
+  @possible_categories = Category.where("lower(name) LIKE ?", "%#{@keyword}%")
+  @event_results = Category.search_event(@possible_categories,@possible_events)
   erb(:search_result)
 end
 

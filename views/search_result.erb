@@ -1,4 +1,4 @@
-
+<h3>You are searching for "<%=@keyword%>"</h3>
 <div class="col-md-6">
 <h2>User results </h2>
 <% if @possible_users.any?()%>
@@ -15,10 +15,10 @@
 
 <div class="col-md-6">
 <h2>Event results </h2>
-<% if @possible_events.any?()%>
-  <%@possible_events.each do|event|%>
+<% if @event_results.any?()%>
+  <%@event_results.each do|event|%>
     <li>
-      <a href='/event/<%=event.id%>'><%=event.name%></a>
+      <a href='/event/<%=event.first.id%>'><%=event.first.name%></a>
     </li>
   <%end%>
 <%else%>

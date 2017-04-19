@@ -69,6 +69,22 @@
   </form>
 </div>
 
+<div class='add_category'>
+  <form action='/add_categories/<%=@event.id%>' method='post'>
+    <input name="_method" type="hidden" value="patch">
+    <% @categories.each do |category|%>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="category_ids[]" value="<%= category.id() %>"><%= category.name() %>
+        </label>
+      </div>
+    <%end%>
+    <button class='btn-sm btn-success' type="submit">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+  </form>
+</div>
+
 
 
 <h1>Add your own friends to this event:</h1>

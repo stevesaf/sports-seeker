@@ -10,4 +10,10 @@ class Event < ActiveRecord::Base
 
   belongs_to(:user)
 
+  def add_category(category_ids)
+    category_ids.each do |id|
+      category = Category.find(id)
+      CategoryEvent.where(:event => self, :category => category).first_or_create({:event => self, :category => category})
+    end
+  end
 end
