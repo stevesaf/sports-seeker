@@ -55,6 +55,8 @@ post("/event") do
     video_url = params.fetch("video_url")
     event = Event.create({:name => name, :date => date , :location => location, :capacity => capacity, :description=>description, :image_url=>image_url, :video_url=>video_url, :user_id=>user_id})
     redirect("/event/#{event.id}")
+    @user = User.find(session[:user_id])
+    @friends = @user.find_friends()
 end
 
 get("/event/:id") do

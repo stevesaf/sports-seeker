@@ -27,9 +27,22 @@
 
 </div>
 
-<h1>Add friends to this event:</h1>
+<h1>Add your own friends to this event:</h1>
 
 <form class="form-horizontal" action="/friend" method="post">
+
+    <% if @friends.any?() %>
+
+    <% @friends.each() do |friend| %>
+
+    <select name="option" id="option">
+        <option value="Case Sensitive Any - including partial words">Case Sensitive Any</option>
+        <option value="Case Sensitive Word Only">Case Sensitive Word Only</option>
+        <option value="Case Non-sensitive Any - including partial words">Case Non-sensitive Any</option>
+        <option value="Case Non-sensitive Word">Case Non-sensitive Word</option>
+    </select>
+    <button class="btn btn-info" type="submit" class="btn">Submit</button>
+
     <div class="form-group">
         <label class="col-sm-1" for="name">Name:</label>
         <input class="col-sm-4" type="text" name="name" id="name" value="">
@@ -55,4 +68,11 @@
     </div>
 
     <button class="btn btn-default" type="submit">Submit</button>
+
+    <% end %>
+
+<% else %>
+    <h3>You have no friends yet!</h3>
+    <% end %>
+
 </form>
