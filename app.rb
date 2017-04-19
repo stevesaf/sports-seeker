@@ -117,6 +117,24 @@ get("/supplier/:id") do
     erb(:supplier)
 end
 
+  patch("/suppliers/:id") do
+    supplier_id = params.fetch('id').to_i
+    name = params.fetch("name")
+    expertise = params.fetch("expertise")
+    cost_per_person = params.fetch("cost_per_person")
+    description = params.fetch("description")
+    logo_url = params.fetch("logo_url")
+    @supplier = Supplier.find(params.fetch("id").to_i())
+    @supplier.update({:name => name, :expertise => expertise, :cost_per_person => cost_per_person, :description => description, :logo_url => logo_url})
+    redirect("/supplier/#{supplier_id}")
+  end
+
+  delete("/suppliers/:id") do
+    @supplier = Supplier.find(params.fetch("id").to_i())
+    @supplier.delete()
+    redirect("/")
+  end
+
 post("/category_suppliers") do
     supplier_id = params.fetch('id').to_i
     category_id = params.fetch('category_id').to_i
