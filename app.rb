@@ -13,6 +13,8 @@ before do
    if session[:user_id] === nil && url != "http://localhost:4567/"
      redirect("/")
     end
+    if @user != nil then @user = User.find(session[:user_id])
+    end
   end
 end
 
@@ -139,6 +141,7 @@ patch ("/add_categories/:id") do
 end
 
 get('/search') do
+  @user = User.find(session[:user_id])
   @keyword = params.fetch('keyword').downcase
   @possible_users = User.where("lower(name) LIKE ? OR lower(username) LIKE?", "%#{@keyword}%", "%#{@keyword}%")
   @possible_events = Event.where("lower(name) LIKE ?", "%#{@keyword}%")
