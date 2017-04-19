@@ -62,6 +62,8 @@ get("/event/:id") do
     @host = User.find(session[:user_id])
     t = @event.date
     @date = t.strftime("%d-%b-%Y")
+    @user = User.find(session[:user_id])
+    @friends = @user.find_friends()
     erb(:event)
 end
 
