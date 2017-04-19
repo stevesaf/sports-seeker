@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170418091736) do
     t.datetime "updated_at"
     t.integer  "sender_id"
     t.boolean  "accepted"
+    t.integer  "rating"
   end
 
   create_table "events", force: :cascade do |t|
@@ -87,7 +88,6 @@ ActiveRecord::Schema.define(version: 20170418091736) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "username"
-    t.integer  "rating"
     t.string   "gender"
     t.string   "image_url"
     t.date     "dob"
