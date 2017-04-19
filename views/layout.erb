@@ -23,7 +23,7 @@
               <ul class="nav navbar-nav">
                 <%if session[:user_id] != nil%>
                   <li class="active"><a href="#">View Events <span class="sr-only">(current)</span></a></li>
-                  <li>
+                  <li style="margin:15px 0 0 10px">
                       <form action='/search'>
                         <input type='text' name='keyword' placeholder="Search..."/>
                         <button type="submit">Search</button>
@@ -49,6 +49,10 @@
 
         <div class="container">
           <%= yield %>
+          <p class="col-md-1 friendbar">Friends</p>
+
         </div>
+
+
       </body>
     </html>

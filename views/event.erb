@@ -1,35 +1,67 @@
-<h1><%= @event.name%></h1>
+<h1><%= @event.name%><small> Hosted by <%=@event.user.name%> </small> </h1>
 
-<h3>Hosted by
-    <%=@event.user.name%>
-</h3>
-
-<div style="width: 80%; height: 300px; border: 1px solid black; margin-bottom: 5px" class="">
-
-    <img class="col-xs-6" style="max-height: 150px; max-width=150px; margin-bottom: 10px; margin-top: 10px" src="<%= @event.image_url%>">
-
-    <iframe class="col-xs-6 video-frame" style="; margin-bottom: 10px; margin-top: 10px" src="<%= @event.video_url%>" frameborder="0" allowfullscreen></iframe>
-
-    <div style="margin-left: 20px">
-        <p>Name:
-            <%=@event.name%>
-        </p>
-        <p>Date:
-            <%=@date%>
-        </p>
-        <p>Location:
-            <%=@event.location%>
-        </p>
-        <p>Capacity:
-            <%=@event.capacity%>
-        </p>
+  <div class="row" style="height:400px ;border: 1px solid grey">
+    <div class="col-md-6">
+      <img class="css-eventimg" src="<%= @event.image_url%>">
     </div>
+    <div class="col-md-6" style="margin-top:40px">
+      <h4>Name: <%=@event.name%></h4>
+      <h4>Date: <%=@date%></h4>
+      <h4>Location: <%=@event.location%></h4>
+      <h4>Capacity: <%=@event.capacity%></h4>
+    </div>
+
+    <%if @event.video_url == "" %>
+    <%else%>
+    <iframe style="margin-top: 30px; margin-bottom: 30px; width: 300px; border: 1px solid grey" src="<%= @event.video_url%>" frameborder="0" allowfullscreen aria="blank"></iframe>
+    <%end%>
+
+  </div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Friends going:</h2>
+    <% @accepted.each() do |event_user| %>
+    <li><%= event_user.attendee.name%></li>
+    <%end%>
+  </div>
+  <div class="col-md-4">
+    <h2>Pending Acceptance:</h2>
+    <% @pending.each() do |event_user| %>
+    <li><%= event_user.attendee.name%></li>
+    <%end%>
+  </div>
+  <div class="col-md-4">
+    <h2>Declined:</h2>
+    <% @declined.each() do |event_user| %>
+    <li><%= event_user.attendee.name%></li>
+    <%end%>
+  </div>
 </div>
+
+
+<h2>Add friends to this event:</h2>
+
+<form class="form-horizontal" action="/event_user/<%=@event.id%>" method="post">
+
+    <% if @friends.any?() %>
+        <select name="friend_id">
+            <% @friends.each() do |friend| %>
+            <option value=<%=friend.id%>><%=friend.name%></option>
+            <% end %>
+        </select>
+        <button class="btn btn-info" type="submit" class="btn">Submit</button>
+    <% else %>
+        <h3>You have no friends yet!</h3>
+    <% end %>
+
+</form>
+
+<hr>
 
 <div class="update_event">
   <form class="form-horizontal" id="update_event_id" action="/event/<%= @event.id()%>" method="post">
     <input name="_method" value="patch" type="hidden">
-
     <div class="form-group">
       <label class="col-sm-1" for="name">Name:</label>
       <input class="col-sm-4" type="text" name="name" value="" placeholder="<%= @event.name()%>">

@@ -16,7 +16,7 @@ end
 
 class Event < ActiveRecord::Base
 list = [
-    [ "David's baby shower", "2017-04-18 00:00:00", "Central", "300", "New baby", "http://images.parents.mdpcdn.com/sites/parents.com/files/styles/width_300/public/images/p_101528432.jpg","https://www.youtube.com/watch?v=u5fnrKGal-s" , "2"],
+    [ "David's baby shower", "2017-04-18 00:00:00", "Central", "300", "New baby", "http://images.parents.mdpcdn.com/sites/parents.com/files/styles/width_300/public/images/p_101528432.jpg","" , "2"],
     [ "AHK Cohort 1 Graduation", "2017-05-27 00:00:00", "Wan Chai", "200", "Exciting event for everybody", "https://media.giphy.com/media/qLHzYjlA2FW8g/giphy.gif","https://www.youtube.com/embed/CVpdBCM6VjU" , "1"]
   ]
 
@@ -42,5 +42,17 @@ list = [
 
   list.each do |name|
     Category.create( name: name )
+  end
+end
+
+class EventUser < ActiveRecord::Base
+list = [
+  [ "1", "4", "5", ],
+  [ "1", "2", "5", "true" ],
+  [ "1", "3", "5", "false" ]
+]
+
+  list.each do |event_id, attendee_id, sender_id, accepted|
+    EventUser.create( event_id: event_id, attendee_id: attendee_id, sender_id: sender_id, accepted: accepted )
   end
 end
