@@ -102,6 +102,20 @@ post("/category") do
     redirect('/admin')
 end
 
+  patch("/categories/:id") do
+    category_id = params.fetch('id').to_i
+    name = params.fetch("name")
+    @category = Category.find(params.fetch("id").to_i())
+    @category.update({:name => name})
+    redirect("/category/#{category_id}")
+  end
+
+  delete("/categories/:id") do
+    @category = Category.find(params.fetch("id").to_i())
+    @category.delete()
+    redirect("/admin")
+  end
+
 post("/supplier") do
     name = params.fetch("name")
     expertise = params.fetch("expertise")
@@ -134,7 +148,7 @@ end
   delete("/suppliers/:id") do
     @supplier = Supplier.find(params.fetch("id").to_i())
     @supplier.delete()
-    redirect("/")
+    redirect("/admin")
   end
 
 post("/category_suppliers") do
