@@ -54,7 +54,7 @@
           <h4>Friends</h4>
           <%if @user != nil %>
             <% @user.find_friends.each() do |friend| %>
-            <li> <%=friend.name %> </li>
+            <a href="/user/<%=friend.id%>"><li> <%=friend.name %> </li></a>
             <%end%>
           <%end%>
         </div>
