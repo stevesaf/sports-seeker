@@ -56,8 +56,10 @@
   </form>
 </div>
 
-<form action="/suppliers/<%= @supplier.id() %>" method="post">
-  <input name="_method" type="hidden" value="delete">
+<div class="delete_supplier">
+  <form action="/suppliers/<%= @supplier.id() %>" method="post">
+    <input name="_method" type="hidden" value="delete">
 
-  <button class="btn btn-default" type="submit">Delete </button>
-</form>
+    <button class="btn btn-default" type="submit">Delete </button>
+  </form>
+</div>
