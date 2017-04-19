@@ -5,8 +5,8 @@ class Event < ActiveRecord::Base
   has_many(:event_suppliers, dependent: :destroy)
   has_many(:suppliers, through: :event_suppliers)
 
-  has_many(:histories, dependent: :destroy)
-  has_many(:users, through: :histories)
+  has_many(:event_users, dependent: :destroy)
+  has_many(:users, through: :event_users)
 
   belongs_to(:user)
 

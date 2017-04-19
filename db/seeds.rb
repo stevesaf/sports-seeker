@@ -44,3 +44,15 @@ list = [
     Category.create( name: name )
   end
 end
+
+class EventUser < ActiveRecord::Base
+list = [
+  [ "1", "4", "5", ],
+  [ "1", "2", "5", "true" ],
+  [ "1", "3", "5", "false" ]
+]
+
+  list.each do |event_id, attendee_id, sender_id, accepted|
+    EventUser.create( event_id: event_id, attendee_id: attendee_id, sender_id: sender_id, accepted: accepted )
+  end
+end

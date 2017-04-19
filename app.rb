@@ -92,6 +92,9 @@ end
 
 get("/event/:id") do
   @event = Event.find(params.fetch("id").to_i)
+  @pending = EventUser.where(:event => @event, :accepted => nil)
+  @declined = EventUser.where(:event => @event, :accepted => false)
+  @accepted = EventUser.where(:event => @event, :accepted => true)
   t = @event.date
   @date = t.strftime("%d-%b-%Y")
   @user = User.find(session[:user_id])
