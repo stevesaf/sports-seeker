@@ -31,13 +31,16 @@
 
 <h1>See all categories below:</h1>
 <% @categories.each() do |category| %>
+
   <li><%= category.name %></li>
 <% end %>
 
 <h1>Create Category:</h1>
 
 <form action="/category" method="post">
-  <label for="name">Name:</label>
-  <input type="text" name="name" id="name" value="">
-  <button class="btn btn-default" type="submit">Submit</button>
+  <div class="form-group">
+    <label class="col-sm-1" for="name">Name:</label>
+    <input class="col-sm-4" type="text" name="name" id="name" value="">
+  </div>
+    <button class="btn btn-default" type="submit">Submit</button>
 </form>
