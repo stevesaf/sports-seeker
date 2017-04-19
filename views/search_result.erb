@@ -4,7 +4,7 @@
 <% if @possible_users.any?()%>
   <%@possible_users.each do|user|%>
     <li>
-      <img src="<%= user.image_url%>">
+      <img class="css-profile" src="<%= user.image_url%>">
       <a href='/user/<%=user.id%>'><%=user.name%></a>
     </li>
   <%end%>
