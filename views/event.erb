@@ -64,12 +64,12 @@
 
 <h1>Add your own friends to this event:</h1>
 
-<form class="form-horizontal" action="/user" method="post">
+<form class="form-horizontal" action="/event_user/<%=@event.id%>" method="post">
 
     <% if @friends.any?() %>
-        <select name="option" id="option">
+        <select name="friend_id">
             <% @friends.each() do |friend| %>
-            <option value=<%friend.id%>><%=friend.name%></option>
+            <option value=<%=friend.id%>><%=friend.name%></option>
             <% end %>
         </select>
         <button class="btn btn-info" type="submit" class="btn">Submit</button>
