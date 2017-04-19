@@ -47,11 +47,19 @@
           </div>
         </nav>
 
-        <div class="container">
+        <div class="col-md-10">
           <%= yield %>
-          <p class="col-md-1 friendbar">Friends</p>
-
         </div>
+        <div>
+        <div class="col-md-2 friendbar">
+          <h4>Friends</h4>
+          <%if @user != nil %>
+            <% @user.find_friends.each() do |friend| %>
+            <li> <%=friend.name %> </li>
+            <%end%>
+          <%end%>
+        </div>
+
 
 
       </body>
