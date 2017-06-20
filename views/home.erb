@@ -1,59 +1,82 @@
-<h1> All invitations</h1>
-  <% if @invitations.any?() %>
-    <%@invitations.each do |invitation|%>
-      <a href ="/event/<%=invitation.event.id%>"><%=invitation.event.name%></a> - Invited by: <a href ="/user/<%=invitation.sender.id%>"><%=invitation.sender.name%></a>
-      <form action='/accept/<%=invitation.id%>' method='post'>
-        <input type="hidden" name="_method" value="patch">
-        <button class='btn btn-success'>Accept</button>
-      </form>
-      <form action='/reject/<%=invitation.id%>' method='post'>
-        <input type="hidden" name="_method" value="patch">
-        <button class='btn btn-danger'>Reject</button>
-      </form>
-    <%end%>
-  <%else%>
-    None
-  <%end%>
+<div class="searchbar">
+  <h4><span class="search-text">Find Your Next Event</span></h4>
+  <form action='/search' method = 'get'>
+    <input type='text' name="search" id ="search" placeholder="Search by event or artist name" width="50">
+    <button type='submit' class="btn search-btn">Search</button>
+  </form>
+  <a id="sell_tickets"></a>
 
-  <h1> All your accepted events below:</h1>
-  <% @user.attendee.each() do |attendee|%>
-  <a href="/event/<%=attendee.event_id%>"><li><%=attendee.event.name%></li></a>
-  <%end%>
+  {% @categories.each() do |category| %}
+    <form action='/categorysearch' method='get' class="categories">
+      <button class="btn btn-info" type="submit" value="{%=category.id()%}" name="categorysearch">{%= category.name() %}</button>
+    </form>
+ {% end %}
+</div>
 
-<h1>Create Event:</h1>
+<br>
+<div class="panel panel-primary class">
+  <div class="panel-heading" id="sell_box" style="border: 3px solid;">Sell a ticket! It's fast, easy and free.</div>
+  <div class="panel-body">
+    <form action="/offer" method="post">
+      <label for="event_id">Select a Event</label>
+      <select id='event_id' name='event_id' type='text'>
+        {% @events.each() do |event| %}
+        <option value="{%= event.id()%}"> {%= event.name() %} </option>
+        {% end %}
+      </select>
 
-<form class="form-horizontal" action="/event" method="post">
-  <input type="hidden" name="user_id" value="<%= @user.id%>">
-  <div class="form-group">
-    <label class="col-sm-1" for="name">Name:</label>
-    <input class="col-sm-4" type="text" name="name" id="name" value="">
-  </div>
-  <div class="form-group">
-    <label class="col-sm-1" for="date">Date:</label>
-    <input class="col-sm-4" type="datetime-local" name="date" id="date" value="">
-  </div>
-  <div class="form-group">
-    <label class="col-sm-1" for="location">Location:</label>
-    <input class="col-sm-4" type="text" name="location" id="location" value="">
-  </div>
-  <div class="form-group">
-    <label class="col-sm-1" for="capacity">Capacity:</label>
-    <input class="col-sm-4" type="number" name="capacity" min="1" value="">
-  </div>
-  <div class="form-group">
-    <label class="col-sm-1" for="description">Description:</label>
-    <input class="col-sm-4" type="text" name="description" value="">
-  </div>
-  <div class="form-group">
-    <label class="col-sm-1" for="image_url">Image URL:</label>
-    <input class="col-sm-4" type="text" name="image_url" value="">
-  </div>
-  <div class="form-group">
-    <label class="col-sm-1" for="video_url">Video URL:</label>
-    <input class="col-sm-4" type="text" name="video_url" value="">
-  </div>
-    <button class="btn btn-default" type="submit">Submit</button>
-</form>
+      <label for="price">Price:</label>
+      <input id="price" name="price" type="number">
 
 
-<hr>
+
+   <!-- <input type="radio" name="offer" value="false">Buy -->
+    <input type="hidden" name="offer" value= "true">
+
+
+      <button type="submit" class="btn btn-primary">Sell</button>
+    </form>
+  </div>
+</div>
+<!-- offers start here -->
+<div class="panel panel-primary class">
+  <div class="panel-heading" id="sell_box" style="border: 3px solid;">Check out tickets to upcoming events:</div>
+</div>
+    {% @offers.each() do |offer| %}
+
+    		<div class="panel panel-default">
+  				<div class="panel-body">
+
+
+    				<div class="col-md-2">
+    					{%= offer.event.name %}
+    				</div>
+  	      		<div class="col-md-2">
+  	      			HKD {%= offer.price %}
+  	      		</div>
+  	      		<div class="col-md-2">
+
+  	        		<img style="width: 150px;" src="{%= offer.event.imageurl %}">
+
+  	        	</div>
+  	      		<div class="col-md-2">
+                <form action='/user_contact' method='post'>
+                  <input type='hidden' value="{%=offer.user_id%}" name='user_id' id='user_id'>
+                  <input type='hidden' value="{%=offer.id%}" name='offer_id' id='offer_id'>
+
+  	      			  <button action='submit' class="btn btn-success">BUY</button>
+                </form>
+  	      		</div>
+  	      		<div class="col-md-2">
+  	      			<button class="btn btn-info"><a href="/offer/{%=offer.id()%}">View</a></button>
+  	      		</div>
+              <div class="col-md-2">
+                {%= offer.event.date() %}
+
+  	      		</div>
+
+      		</div>
+      	</div>
+    {% end %}
+
+</div>
