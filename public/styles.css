@@ -1,3 +1,5 @@
+
+
 .css-profile {
   height:150px;
 }
@@ -10,4 +12,90 @@
 .friendbar {
   position: relative;
   right: 10px;
+}
+
+.event-detail{
+	font-size:28px;
+}
+
+.jumbotron {
+background: url('/img/soccer.jpg');
+height: 500px;
+
+}
+
+.searchbar{
+	padding:25px;
+	border:1px solid black;
+	text-align: center;
+	width:70%;
+	margin:0 auto;
+	margin-top:-120px;
+	background: #fff;
+	border-radius: 5px;
+	color:#f63;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#search{
+	width:500px;
+	height:30px;
+}
+.search-btn{
+	color:#fff;
+	background: #f6682f;
+	height: 30px;
+	width:90px;
+	margin-bottom: 5px;
+}
+.search-text{
+	font-size: 35px;
+	letter-spacing: 2px;
+}
+
+.categories {
+display: inline;
+}
+
+/*
+NEW STYLING*/
+
+#main_container {
+align-items: center;
+text-align: center;
+
+}
+
+body {
+  align-items: center;
+}
+
+.container {
+  margin-top: 100px;
+
+}
+
+a {
+  color: white;
+}
+
+
+::-webkit-input-placeholder {
+   text-align: center;
+   background: transparent;
+   border: none;
+   color: #991d1d;
+  }
+
+#placeholder_color {
+	color: #991d1d;
+}
+
+input[type="text"] {
+    background: rgba(0,0,0,0.4);
+    /*margin: 5px;*/
+    font-size: 18px;
+    border: none;
+    color: white;
+    text-align: center;
 }
